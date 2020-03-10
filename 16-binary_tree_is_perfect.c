@@ -6,13 +6,14 @@
  */
 int depthLeft(const binary_tree_t *root)
 {
-        int d = 0;
-        while (root != NULL)
-        {
-                d++;
-                root = root->left;
-        }
-        return (d);
+	int d = 0;
+
+	while (root != NULL)
+	{
+		d++;
+		root = root->left;
+	}
+	return (d);
 }
 /**
  * isPerfectRec - recursive function to check if
@@ -24,14 +25,14 @@ int depthLeft(const binary_tree_t *root)
  */
 int isPerfectRec(const binary_tree_t *root, int d, int level)
 {
-        if (root == NULL)
-                return (0);
-        if (root->left == NULL && root->right == NULL)
-                return (d == level + 1);
-        if (root->left == NULL || root->right == NULL)
-                return (0);
-        return (isPerfectRec(root->left, d, level + 1)
-                && isPerfectRec(root->right, d, level + 1));
+	if (root == NULL)
+		return (0);
+	if (root->left == NULL && root->right == NULL)
+		return (d == level + 1);
+	if (root->left == NULL || root->right == NULL)
+		return (0);
+	return (isPerfectRec(root->left, d, level + 1)
+		&& isPerfectRec(root->right, d, level + 1));
 }
 /**
  * binary_tree_is_perfect - checks if a binary tree is perfect
@@ -40,6 +41,7 @@ int isPerfectRec(const binary_tree_t *root, int d, int level)
  */
 int binary_tree_is_perfect(const binary_tree_t *tree)
 {
-        int d = depthLeft(tree);
-        return (isPerfectRec(tree, d, 0));
+	int d = depthLeft(tree);
+
+	return (isPerfectRec(tree, d, 0));
 }

@@ -18,8 +18,10 @@ size_t binary_tree_height_add(const binary_tree_t *tree)
 	height_r = 1 + binary_tree_height_add(tree->right);
 
 	if (height_l > height_r)
+
 		return (height_l);
 	return (height_r);
+
 }
 /**
  * printLevel - print nodes at given level order
