@@ -67,23 +67,19 @@ bst_t *bst_remove(bst_t *root, int value)
 		child->parent = tmp->parent;
 		child->left = tmp->left;
 		tmp->left->parent = child;
-		child->right = tmp->right;
-		tmp->right->parent = child;
-		tmp->right->left = NULL;
-		if (tmp->parent && (tmp->n < tmp->parent->n))
-			tmp->parent->left = child;
-		if (tmp->parent && (tmp->n > tmp->parent->n))
-			tmp->parent->right = child;
+		if (child == tmp->right)
+			child->right = NULL;
+		else
+		{
+			child->right = tmp->right;
+			tmp->right->parent = child;
+		}
 		free(tmp);
 	}
 	else
 	{
 		child = (tmp->left) ? tmp->left : tmp->right;
 		child->parent = tmp->parent;
-		if (tmp->parent && (tmp->n < tmp->parent->n))
-			tmp->parent->left = child;
-		if (tmp->parent && (tmp->n > tmp->parent->n))
-			tmp->parent->right = child;
 		free(tmp);
 	}
 	if (!child->parent)
