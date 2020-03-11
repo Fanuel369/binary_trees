@@ -1,7 +1,7 @@
 #include "binary_trees.h"
 /**
  * isBST - check if each node has in the left a less value than himself
- * @node: node to check
+ * @root: node to check
  * @min: min value to check with the node at the left
  * @max: max value to check with the node at the right
  * Return: 1 if is a BST or 0 otherwise
