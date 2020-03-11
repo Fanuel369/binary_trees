@@ -10,11 +10,11 @@ binary_tree_t *binary_tree_rotate_right(binary_tree_t *tree)
 	binary_tree_t *x, *y = NULL;
 	int flag = 0;
 
-	x = tree;
-	y = tree->left;
-
 	if (!tree || !tree->left)
 		return (NULL);
+
+	x = tree;
+	y = tree->left;
 
 	tree->left = y->right;
 	if (y->right != NULL)
@@ -35,6 +35,6 @@ binary_tree_t *binary_tree_rotate_right(binary_tree_t *tree)
 	}
 	x->parent = y;
 	if (flag == 1)
-		return(tree);
+		return (tree);
 	return (y->parent);
 }
