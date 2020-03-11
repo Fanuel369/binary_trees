@@ -47,5 +47,6 @@ bst_t *bst_insert(bst_t **tree, int value)
 			return (node);
 		}
 	}
+	free(node);
 	return (NULL);
 }
