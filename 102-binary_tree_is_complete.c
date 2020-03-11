@@ -46,6 +46,9 @@ void runLevel(const binary_tree_t *tree, int level, int last,
 		if (tree->right && !(tree->left) && !last)
 			*ch = 0;
 
+		if (!(tree->left) && !(tree->right) && !last)
+			*ch = 0;
+
 		if ((tree->left || tree->right) && last && *prev)
 			*ch = 0;
 
