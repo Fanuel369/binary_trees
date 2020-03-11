@@ -49,8 +49,7 @@ bst_t *min(bst_t *node)
  */
 bst_t *bst_remove(bst_t *root, int value)
 {
-	bst_t *r = root;
-	bst_t *tmp = NULL, *child = NULL;
+	bst_t *r = root, *tmp = NULL, *child = NULL;
 
 	tmp = bst_search(root, value);
 	if (!tmp)
@@ -64,12 +63,14 @@ bst_t *bst_remove(bst_t *root, int value)
 	else if (tmp->left && tmp->right)
 	{
 		child = min(tmp->right);
+		child->parent->left = NULL;
 		child->parent = tmp->parent;
-		child->left = tmp->left;
-		tmp->left->parent = child;
-		if (child == tmp->right)
-			child->right = NULL;
-		else
+		if (tmp->left && tmp->left != child)
+		{
+			child->left = tmp->left;
+			tmp->left->parent = child;
+		}
+		if (tmp->right && tmp->right != child)
 		{
 			child->right = tmp->right;
 			tmp->right->parent = child;
@@ -80,8 +81,11 @@ bst_t *bst_remove(bst_t *root, int value)
 	{
 		child = (tmp->left) ? tmp->left : tmp->right;
 		child->parent = tmp->parent;
-		free(tmp);
 	}
+	if (child->parent && child->n < tmp->parent->n)
+		tmp->parent->left = child;
+	else if (child->parent && child->n > tmp->parent->n)
+		tmp->parent->right = child;
 	if (!child->parent)
 		return (child);
 	return (r);
