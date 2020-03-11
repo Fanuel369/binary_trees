@@ -28,11 +28,12 @@ size_t binary_tree_height_add(const binary_tree_t *tree)
  * @last: variable to know if in last level of tree
  * @left: checks if for semilast level node can be on left
  * @ch: true or false for complete tree
+ * @prev: helps checks if node is leftmost when having childs
  *
  * Return: Height or 0 if tree is NULL
  */
 void runLevel(const binary_tree_t *tree, int level, int last,
-	      int *left, int *ch)
+	      int *left, int *ch, int *prev)
 {
 	if (!tree)
 		return;
@@ -45,7 +46,13 @@ void runLevel(const binary_tree_t *tree, int level, int last,
 		if (tree->right && !(tree->left) && !last)
 			*ch = 0;
 
-		if (tree->left && !(*left) && last == 2)
+		if ((tree->left || tree->right) && last && *prev)
+			*ch = 0;
+
+		if (!(tree->left) && !(tree->right) && last)
+			*prev = 1;
+
+		if (tree->left && !(*left) && last)
 			*ch = 0;
 
 		if (tree->left && last)
@@ -60,8 +67,8 @@ void runLevel(const binary_tree_t *tree, int level, int last,
 
 	else if (level > 1)
 	{
-		runLevel(tree->left, level - 1, last, left, ch);
-		runLevel(tree->right, level - 1, last, left, ch);
+		runLevel(tree->left, level - 1, last, left, ch, prev);
+		runLevel(tree->right, level - 1, last, left, ch, prev);
 	}
 }
 /**
@@ -72,7 +79,7 @@ void runLevel(const binary_tree_t *tree, int level, int last,
 
 int binary_tree_is_complete(const binary_tree_t *tree)
 {
-	int height, i, check = 1, last = 0, left = 1;
+	int height, i, check = 1, last = 0, left = 1, prev = 0;
 
 	if (!tree)
 		return (0);
@@ -87,7 +94,7 @@ int binary_tree_is_complete(const binary_tree_t *tree)
 			last = 2;
 		else if (i == height)
 			last = 1;
-		runLevel(tree, i, last, &left, &check);
+		runLevel(tree, i, last, &left, &check, &prev);
 	}
 
 	return (check);
