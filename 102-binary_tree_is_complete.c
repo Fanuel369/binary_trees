@@ -86,14 +86,14 @@ int binary_tree_is_complete(const binary_tree_t *tree)
 
 	/** Last = 1, SemiLast = 2 **/
 
-	height = 1 + binary_tree_height_add(tree);
+	height = binary_tree_height_add(tree);
 
-	for (i = 1; i <= height && check; i++)
+	for (i = 1; i < height && check; i++)
 	{
 		if (i == height - 1)
-			last = 2;
-		else if (i == height)
 			last = 1;
+		else if (i == height)
+			last = 2;
 		runLevel(tree, i, last, &left, &check, &prev);
 	}
 
