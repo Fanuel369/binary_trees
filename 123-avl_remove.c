@@ -28,12 +28,14 @@ avl_t *minValue(avl_t *node)
  */
 void avl_rotation_D(avl_t **tree)
 {
-	int balance, bl, br, check = 1;
+	int balance, bl = 0, br = 0, check = 1;
 
 	balance = binary_tree_balance(*tree);
 
-	bl = binary_tree_balance((*tree)->left);
-	br = binary_tree_balance((*tree)->left);
+	if ((*tree)->left)
+		bl = binary_tree_balance((*tree)->left);
+	if ((*tree)->right)
+		br = binary_tree_balance((*tree)->left);
 
 	if (balance > 1 && bl >= 0 && check)
 		*tree = binary_tree_rotate_right(*tree), check = 0;
