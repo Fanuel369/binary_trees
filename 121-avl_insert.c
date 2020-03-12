@@ -21,7 +21,7 @@ void avl_rotation(avl_t **tree, int value)
 	if (balance < -1 && value > (*tree)->right->n && check)
 		*tree = binary_tree_rotate_left(*tree), check = 0;
 
-	if (balance > 1 && value > (*tree)->left->n)
+	if (balance > 1 && value > (*tree)->left->n && check)
 	{
 		(*tree)->left = binary_tree_rotate_left((*tree)->left);
 		*tree = binary_tree_rotate_right(*tree);
