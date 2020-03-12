@@ -19,13 +19,15 @@ avl_t *sort_insert(int *array, int min, int max)
 	half = (max + min) / 2;
 
 	tree = binary_tree_node(NULL, array[half]);
+	if (!tree)
+		return (NULL);
 
 	tree->left = sort_insert(array, min, half - 1);
 
+	tree->right = sort_insert(array, half + 1, max);
+
 	if (tree->left)
 		tree->left->parent = tree;
-
-	tree->right = sort_insert(array, half + 1, max);
 
 	if (tree->right)
 		tree->right->parent = tree;
