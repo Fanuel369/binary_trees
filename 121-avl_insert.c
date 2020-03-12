@@ -11,34 +11,28 @@
  */
 void avl_rotation(avl_t **tree, int value)
 {
-	int balance;
+	int balance, check = 1;
 
 	balance = binary_tree_balance(*tree);
 
-	if (balance > 1 && value < (*tree)->left->n)
-	{
-		*tree = binary_tree_rotate_right(*tree);
-		return;
-	}
+	if (balance > 1 && value < (*tree)->left->n && check)
+		*tree = binary_tree_rotate_right(*tree), check = 0;
 
-	if (balance < -1 && value > (*tree)->right->n)
-	{
-		*tree = binary_tree_rotate_left(*tree);
-		return;
-	}
+	if (balance < -1 && value > (*tree)->right->n && check)
+		*tree = binary_tree_rotate_left(*tree), check = 0;
 
 	if (balance > 1 && value > (*tree)->left->n)
 	{
 		(*tree)->left = binary_tree_rotate_left((*tree)->left);
 		*tree = binary_tree_rotate_right(*tree);
-		return;
+		check = 0;
 	}
 
-	if (balance < -1 && value < (*tree)->right->n)
+	if (balance < -1 && value < (*tree)->right->n && check)
 	{
 		(*tree)->right = binary_tree_rotate_right((*tree)->right);
 		*tree = binary_tree_rotate_left(*tree);
-		return;
+		check = 0;
 	}
 }
 
