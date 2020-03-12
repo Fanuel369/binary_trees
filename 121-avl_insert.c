@@ -45,7 +45,7 @@ void avl_rotation(avl_t **tree, int value)
 avl_t *avl_insert(avl_t **tree, int value)
 {
 
-	avl_t *node;
+	avl_t *node = NULL;
 
 	if (!tree)
 		return (NULL);
@@ -78,9 +78,10 @@ avl_t *avl_insert(avl_t **tree, int value)
 	}
 
 	if (node)
-		return (avl_rotation(tree, value), node);
+	{
+		avl_rotation(tree, value);
+		return (node);
+	}
 
-	return (NULL);
-
-
+	return (node);
 }
