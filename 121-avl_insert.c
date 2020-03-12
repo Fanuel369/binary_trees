@@ -72,11 +72,8 @@ avl_t *avl_insert(avl_t **tree, int value)
 			return ((*tree)->left);
 		}
 		else
-		{
 			node = avl_insert(&((*tree)->left), value);
-			if (node)
-				avl_rotation(tree, value);
-		}
+
 	}
 	else if (value > (*tree)->n)
 	{
