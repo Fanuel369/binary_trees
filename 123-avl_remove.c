@@ -89,7 +89,13 @@ avl_t *avl_remove(avl_t *root, int value)
 			if (!tmp)
 				tmp = root, root = NULL;
 			else
-				*root = *tmp;
+			{
+				root->parent = tmp->parent->parent;
+				root->n = tmp->n;
+				root->left = tmp->left;
+				root->right = tmp->right;
+			}
+
 			free(tmp);
 		}
 		else
@@ -98,9 +104,7 @@ avl_t *avl_remove(avl_t *root, int value)
 			root->n = tmp->n;
 			root->right = avl_remove(root->right, tmp->n);
 		}
-
 	if (root)
 		avl_rotation_D(&root);
-
 	return (root);
 }
