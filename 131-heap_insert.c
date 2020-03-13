@@ -29,7 +29,7 @@ int _height(const binary_tree_t *tree)
 void greater_than_parent(heap_t **father, heap_t **son)
 {
 	heap_t *f, *child, *n_child, *n_left, *n_right, *parent;
-	int left_right;
+	int gtp;
 
 	f = *father, child = *son;
 	if (child->n > f->n)
@@ -39,11 +39,11 @@ void greater_than_parent(heap_t **father, heap_t **son)
 		if (child->right)
 			child->right->parent = f;
 		if (f->left == child)
-			n_child = f->right, left_right = 0;
+			n_child = f->right, gtp = 0;
 		else
-			n_child = f->left, left_right = 1;
+			n_child = f->left, gtp = 1;
 		n_left = child->left, n_right = child->right;
-		if (left_right == 0)
+		if (gtp == 0)
 		{
 			child->right = n_child;
 			if (n_child)
